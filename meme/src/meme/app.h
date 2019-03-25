@@ -2,7 +2,7 @@
 
 #include "core.h"
 
-namespace meme {
+namespace Meme {
 	
 	class MEME_API App
 	{

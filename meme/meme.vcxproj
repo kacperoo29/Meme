@@ -11,12 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\meme\log.h" />
     <ClInclude Include="src\meme.h" />
     <ClInclude Include="src\meme\app.h" />
     <ClInclude Include="src\meme\core.h" />
     <ClInclude Include="src\meme\entry.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\meme\log.cpp" />
     <ClCompile Include="src\meme\app.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -65,6 +67,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)meme\3rdparty\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -75,6 +78,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)meme\3rdparty\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

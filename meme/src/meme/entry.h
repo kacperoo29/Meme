@@ -2,11 +2,14 @@
 
 #ifdef _WIN32
 
-extern meme::App* meme::CreateApplication();
+extern Meme::App* Meme::CreateApplication();
 
 int main(int argc, char** argv)
 {
-	auto app = meme::CreateApplication();
+	Meme::Log::init();
+	MEME_CORE_INFO("Log initialized");
+
+	auto app = Meme::CreateApplication();
 	app->run();
 	delete app;
 }

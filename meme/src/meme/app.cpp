@@ -1,6 +1,6 @@
 #include "app.h"
 
-namespace meme {
+namespace Meme {
 
 	App::App()
 	{

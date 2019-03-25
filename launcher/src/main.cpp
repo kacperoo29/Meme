@@ -1,6 +1,6 @@
 #include <meme.h>
 
-class Launcher : public meme::App
+class Launcher : public Meme::App
 {
 public:
 	Launcher()
@@ -14,7 +14,7 @@ public:
 	
 };
 
-meme::App* meme::CreateApplication()
+Meme::App* Meme::CreateApplication()
 {
 	return new Launcher();
 }
