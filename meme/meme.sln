@@ -5,22 +5,22 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meme", "meme\meme.vcxproj", "{8DF4F8C2-A6F8-41DC-88C7-5918FF9F7506}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "launcher", "launcher\launcher.vcxproj", "{C8DEE0A7-0A30-4B59-9D3B-0EA745C01207}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8DF4F8C2-A6F8-41DC-88C7-5918FF9F7506}.Debug|x64.ActiveCfg = Debug|x64
 		{8DF4F8C2-A6F8-41DC-88C7-5918FF9F7506}.Debug|x64.Build.0 = Debug|x64
-		{8DF4F8C2-A6F8-41DC-88C7-5918FF9F7506}.Debug|x86.ActiveCfg = Debug|Win32
-		{8DF4F8C2-A6F8-41DC-88C7-5918FF9F7506}.Debug|x86.Build.0 = Debug|Win32
 		{8DF4F8C2-A6F8-41DC-88C7-5918FF9F7506}.Release|x64.ActiveCfg = Release|x64
 		{8DF4F8C2-A6F8-41DC-88C7-5918FF9F7506}.Release|x64.Build.0 = Release|x64
-		{8DF4F8C2-A6F8-41DC-88C7-5918FF9F7506}.Release|x86.ActiveCfg = Release|Win32
-		{8DF4F8C2-A6F8-41DC-88C7-5918FF9F7506}.Release|x86.Build.0 = Release|Win32
+		{C8DEE0A7-0A30-4B59-9D3B-0EA745C01207}.Debug|x64.ActiveCfg = Debug|x64
+		{C8DEE0A7-0A30-4B59-9D3B-0EA745C01207}.Debug|x64.Build.0 = Debug|x64
+		{C8DEE0A7-0A30-4B59-9D3B-0EA745C01207}.Release|x64.ActiveCfg = Release|x64
+		{C8DEE0A7-0A30-4B59-9D3B-0EA745C01207}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
