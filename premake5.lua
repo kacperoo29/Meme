@@ -11,12 +11,15 @@ workspace "Meme"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}"
 
 project "Meme"
-	location "meme"
+	location "Meme"
 	kind "SharedLib"
 	language "C++"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	pchheader "stdafx.h"
+	pchsource "Meme/src/stdafx.cpp"
 
 	files 
 	{
@@ -26,7 +29,8 @@ project "Meme"
 
 	includedirs 
 	{
-		"%{prj.name}/3rdparty/spdlog/include"
+		"%{prj.name}/3rdparty/spdlog/include",
+		"Meme/src"
 	}
 
 	filter "system:windows"
@@ -67,8 +71,8 @@ project "Launcher"
 
 	includedirs 
 	{
-		"meme/3rdparty/spdlog/include",
-		"meme/src"
+		"Meme/3rdparty/spdlog/include",
+		"Meme/src"
 	}
 
 	links

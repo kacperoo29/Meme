@@ -1,31 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="meme">
-      <UniqueIdentifier>{E9909A7C-D5C7-9B0D-7EB4-81106ACA170F}</UniqueIdentifier>
+    <Filter Include="Meme">
+      <UniqueIdentifier>{C904897C-B53B-8A0D-5E28-70104A3E060F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Meme\Events">
+      <UniqueIdentifier>{8D54E23A-F909-5B30-82FE-5407EEB25134}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\meme.h" />
-    <ClInclude Include="src\meme\app.h">
-      <Filter>meme</Filter>
+    <ClInclude Include="src\Meme.h" />
+    <ClInclude Include="src\Meme\App.h">
+      <Filter>Meme</Filter>
     </ClInclude>
-    <ClInclude Include="src\meme\core.h">
-      <Filter>meme</Filter>
+    <ClInclude Include="src\Meme\Core.h">
+      <Filter>Meme</Filter>
     </ClInclude>
-    <ClInclude Include="src\meme\entry.h">
-      <Filter>meme</Filter>
+    <ClInclude Include="src\Meme\Entry.h">
+      <Filter>Meme</Filter>
     </ClInclude>
-    <ClInclude Include="src\meme\log.h">
-      <Filter>meme</Filter>
+    <ClInclude Include="src\Meme\Events\ApplicationEvent.h">
+      <Filter>Meme\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Meme\Events\Event.h">
+      <Filter>Meme\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Events\KeyEvent.h">
+      <Filter>Meme\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Events\MouseEvent.h">
+      <Filter>Meme\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Log.h">
+      <Filter>Meme</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\meme\app.cpp">
-      <Filter>meme</Filter>
+    <ClCompile Include="src\Meme\App.cpp">
+      <Filter>Meme</Filter>
     </ClCompile>
-    <ClCompile Include="src\meme\log.cpp">
-      <Filter>meme</Filter>
+    <ClCompile Include="src\Meme\Log.cpp">
+      <Filter>Meme</Filter>
     </ClCompile>
+    <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
 </Project>
