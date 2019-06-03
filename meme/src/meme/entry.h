@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 	MEME_CORE_INFO("Log initialized");
 
 	auto app = Meme::CreateApplication();
-	app->run();
+	app->Run();
 	delete app;
 }
 

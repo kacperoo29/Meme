@@ -1,5 +1,7 @@
 #pragma once
 
+#include "stdafx.h"
+
 #include "../core.h"
 
 namespace Meme {

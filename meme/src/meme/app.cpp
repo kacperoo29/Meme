@@ -16,7 +16,7 @@ namespace Meme {
 	{
 	}
 
-	void App::run()
+	void App::Run()
 	{
 		WindowResizeEvent e(1280, 720);
 		MEME_TRACE(e);

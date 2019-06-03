@@ -9,7 +9,7 @@ namespace Meme {
 	public:
 		App();
 		virtual ~App();
-		void run();
+		void Run();
 	};
 
 	App* CreateApplication();
