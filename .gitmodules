@@ -1,3 +1,6 @@
 [submodule "Meme/3rdparty/spdlog"]
 	path = Meme/3rdparty/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "Meme/3rdparty/glfw"]
+	path = Meme/3rdparty/glfw
+	url = https://github.com/glfw/glfw.git
