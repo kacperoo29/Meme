@@ -158,14 +158,14 @@
     <ClInclude Include="src\Meme\Events\KeyEvent.h" />
     <ClInclude Include="src\Meme\Events\MouseEvent.h" />
     <ClInclude Include="src\Meme\Log.h" />
-    <ClInclude Include="src\Meme\Platform\Win32\Win32Window.h" />
+    <ClInclude Include="src\Platform\Win32\Win32Window.h" />
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\Meme\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Meme\App.cpp" />
     <ClCompile Include="src\Meme\Log.cpp" />
-    <ClCompile Include="src\Meme\Platform\Win32\Win32Window.cpp" />
+    <ClCompile Include="src\Platform\Win32\Win32Window.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

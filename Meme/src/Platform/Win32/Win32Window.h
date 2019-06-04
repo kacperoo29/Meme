@@ -17,7 +17,7 @@ namespace Meme {
 		inline unsigned int GetWidth() const override { return m_data.width; }
 		inline unsigned int GetHeight() const override { return m_data.height; }
 		
-		inline void SetEventCallback(const EventCallbackFn& callback) override { m_data.eventCallback = callback; }
+		inline void SetEventCallback(const EventCallbackFn& callback) override { m_data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 	private:
@@ -32,7 +32,7 @@ namespace Meme {
 			unsigned int width, height;
 			bool VSync;
 
-			EventCallbackFn eventCallback;
+			EventCallbackFn EventCallback;
 		};
 
 		WindowData m_data;

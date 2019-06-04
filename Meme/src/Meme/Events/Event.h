@@ -61,7 +61,7 @@ namespace Meme {
 		{
 			if (m_event.GetEventType() == T::GetStaticType())
 			{
-				m_event.m_handled = func(*(T*)&m_event);
+				m_event.m_isHandled = func(*(T*)&m_event);
 				return true;
 			}
 			return false;
