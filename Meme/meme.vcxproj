@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>__DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\glfw\include;src;3rdparty\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\glfw\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -102,7 +102,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>__RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\glfw\include;src;3rdparty\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\glfw\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -128,7 +128,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>__DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\glfw\include;src;3rdparty\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\glfw\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -158,11 +158,14 @@
     <ClInclude Include="src\Meme\Events\KeyEvent.h" />
     <ClInclude Include="src\Meme\Events\MouseEvent.h" />
     <ClInclude Include="src\Meme\Log.h" />
+    <ClInclude Include="src\Meme\Platform\Win32\Win32Window.h" />
     <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\Meme\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Meme\App.cpp" />
     <ClCompile Include="src\Meme\Log.cpp" />
+    <ClCompile Include="src\Meme\Platform\Win32\Win32Window.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

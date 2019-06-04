@@ -12,6 +12,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Meme/Log.h"
+
 
 #ifdef _WIN32
 #include <windows.h>

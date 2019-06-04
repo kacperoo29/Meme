@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core.h"
+#include "Window.h"
 
 namespace Meme {
 	
@@ -10,6 +11,10 @@ namespace Meme {
 		App();
 		virtual ~App();
 		void Run();
+
+	private:
+		std::unique_ptr<Window> m_window;
+		bool m_isRunning = true;
 	};
 
 	App* CreateApplication();

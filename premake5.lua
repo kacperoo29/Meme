@@ -79,8 +79,7 @@ project "Meme"
 	{
 		"%{prj.name}/3rdparty/spdlog/include",
 		"%{prj.name}/3rdparty/glfw/include",
-		"Meme/src",
-		"Meme/3rdparty/GLFW/include"
+		"Meme/src"
 	}
 
 	links

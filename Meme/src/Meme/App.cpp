@@ -5,10 +5,13 @@
 #include "meme/log.h"
 #include "meme/events/ApplicationEvent.h"
 
+#include <GLFW/glfw3.h>
+
 namespace Meme {
 
 	App::App()
 	{
+		m_window = std::unique_ptr<Window>(Window::Create());
 	}
 
 
@@ -21,7 +24,12 @@ namespace Meme {
 		WindowResizeEvent e(1280, 720);
 		MEME_TRACE(e);
 
-		while (true);
+		while (m_isRunning)
+		{
+			glClearColor(1, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+			m_window->OnUpdate();
+		}
 	}
 
 }

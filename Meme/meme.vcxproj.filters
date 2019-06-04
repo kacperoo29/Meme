@@ -35,6 +35,10 @@
       <Filter>Meme</Filter>
     </ClInclude>
     <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\Meme\Platform\Win32\Win32Window.h" />
+    <ClInclude Include="src\Meme\Window.h">
+      <Filter>Meme</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Meme\App.cpp">
@@ -44,5 +48,6 @@
       <Filter>Meme</Filter>
     </ClCompile>
     <ClCompile Include="src\stdafx.cpp" />
+    <ClCompile Include="src\Meme\Platform\Win32\Win32Window.cpp" />
   </ItemGroup>
 </Project>
