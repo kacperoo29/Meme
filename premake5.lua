@@ -100,14 +100,17 @@ project "Meme"
 
 	filter "configurations:Debug"
 		defines "__DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 		
 	filter "configurations:Release"
 		defines "__RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 		
 	filter "configurations:Dist"
 		defines "__DIST"
+		buildoptions "/MD"
 		optimize "On"
 		
 
@@ -143,12 +146,15 @@ project "Launcher"
 
 	filter "configurations:Debug"
 		defines "__DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 		
 	filter "configurations:Release"
 		defines "__RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 		
 	filter "configurations:Dist"
 		defines "__DIST"
+		buildoptions "/MD"
 		optimize "On"

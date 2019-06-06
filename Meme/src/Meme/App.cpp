@@ -24,7 +24,12 @@ namespace Meme {
 		EventDispatcher disp(e);
 		disp.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(App::OnWindowClose));
 
-		MEME_CORE_TRACE("{0}", e);
+		for (auto it = m_layerStack.end(); it != m_layerStack.begin(); )
+		{
+			(*--it)->OnEvent(e);
+			if (e.handled)
+				break;
+		}
 	}
 
 	void App::Run()
@@ -35,6 +40,16 @@ namespace Meme {
 			glClear(GL_COLOR_BUFFER_BIT);
 			m_window->OnUpdate();
 		}
+	}
+
+	void App::PushLayer(Layer * layer)
+	{
+		m_layerStack.PushLayer(layer);
+	}
+
+	void App::PushOverlay(Layer * overlay)
+	{
+		m_layerStack.PushOverlay(overlay);
 	}
 
 	bool App::OnWindowClose(WindowCloseEvent & e)

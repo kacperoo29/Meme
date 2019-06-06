@@ -27,7 +27,7 @@ namespace Meme {
 #define MEME_CORE_FATAL(...)	::Meme::Log::getCoreLogger()->fatal(__VA_ARGS__)
 
 #define MEME_TRACE(...)	::Meme::Log::getClientLogger()->trace(__VA_ARGS__)
-#define MEMET_INFO(...)	::Meme::Log::getClientLogger()->info(__VA_ARGS__)
+#define MEME_INFO(...)	::Meme::Log::getClientLogger()->info(__VA_ARGS__)
 #define MEME_WARN(...)	::Meme::Log::getClientLogger()->warn(__VA_ARGS__)
 #define MEME_ERROR(...)	::Meme::Log::getClientLogger()->error(__VA_ARGS__)
 #define MEME_FATAL(...)	::Meme::Log::getClientLogger()->fatal(__VA_ARGS__)
