@@ -5,6 +5,9 @@
 #include "Meme/Events/MouseEvent.h"
 #include "Meme/Events/KeyEvent.h"
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 namespace Meme {
 
 	static bool s_GLFWInitialized = false;
@@ -48,6 +51,10 @@ namespace Meme {
 
 		m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_window);
+
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		assert(status, "Failed to initalize glad!");
+
 		glfwSetWindowUserPointer(m_window, &m_data);
 		SetVSync(true);
 
@@ -143,6 +150,17 @@ namespace Meme {
 				data.EventCallback(event);
 			}
 		);
+
+		glfwSetCharCallback(m_window,
+			[](GLFWwindow* window, unsigned int c)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				KeyTypedEvent event(c);
+				data.EventCallback(event);
+			}
+		);
+
 	}
 
 	void Win32Window::Shutdown()

@@ -21,7 +21,9 @@ namespace Meme {
 		
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
-			
+
+		inline Window& GetWindow() { return *m_window; }
+		inline static App& Get() { return *s_instance; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
@@ -29,6 +31,8 @@ namespace Meme {
 		std::unique_ptr<Window> m_window;
 		bool m_isRunning = true;
 		LayerStack m_layerStack;
+
+		static App* s_instance;
 	};
 
 	App* CreateApplication();

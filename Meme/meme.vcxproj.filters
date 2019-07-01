@@ -7,8 +7,14 @@
     <Filter Include="Meme\Events">
       <UniqueIdentifier>{8D54E23A-F909-5B30-82FE-5407EEB25134}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Meme\imgui">
+      <UniqueIdentifier>{F3C401CE-DF7C-431B-4884-1C77345BDE0B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Win32">
       <UniqueIdentifier>{8C36D494-7804-C89A-6198-38C14D05A4FF}</UniqueIdentifier>
@@ -49,10 +55,19 @@
     <ClInclude Include="src\Meme\Window.h">
       <Filter>Meme</Filter>
     </ClInclude>
+    <ClInclude Include="src\Meme\imgui\imguiLayer.h">
+      <Filter>Meme\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Win32\Win32Window.h">
       <Filter>Platform\Win32</Filter>
     </ClInclude>
     <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\Meme\Input.h" />
+    <ClInclude Include="src\Platform\Win32\Win32Input.h" />
+    <ClInclude Include="src\Meme\Keycodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Meme\App.cpp">
@@ -67,9 +82,16 @@
     <ClCompile Include="src\Meme\Log.cpp">
       <Filter>Meme</Filter>
     </ClCompile>
+    <ClCompile Include="src\Meme\imgui\imguiLayer.cpp">
+      <Filter>Meme\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Win32\Win32Window.cpp">
       <Filter>Platform\Win32</Filter>
     </ClCompile>
     <ClCompile Include="src\stdafx.cpp" />
+    <ClCompile Include="src\Platform\Win32\Win32Input.cpp" />
   </ItemGroup>
 </Project>

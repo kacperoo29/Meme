@@ -19,26 +19,26 @@
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Meme</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -79,12 +79,11 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>__DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\glfw\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_GLAD;__DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\GLFW\include;3rdparty\glad\include;3rdparty\imgui;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -94,7 +93,7 @@
       <ImportLibrary>..\bin\Debug-windows\Meme\Meme.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows\Meme\Meme.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows\Meme\Meme.dll ..\bin\Debug-windows\launcher &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows\Meme\Meme.dll ..\bin\Debug-windows\launcher &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows\Meme\Meme.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows\Meme\Meme.dll "..\bin\Debug-windows\launcher\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows\Meme\Meme.dll "..\bin\Debug-windows\launcher\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -102,15 +101,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>__RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\glfw\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_GLAD;__RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\GLFW\include;3rdparty\glad\include;3rdparty\imgui;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -121,7 +119,7 @@
       <ImportLibrary>..\bin\Release-windows\Meme\Meme.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows\Meme\Meme.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows\Meme\Meme.dll ..\bin\Release-windows\launcher &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows\Meme\Meme.dll ..\bin\Release-windows\launcher &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows\Meme\Meme.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows\Meme\Meme.dll "..\bin\Release-windows\launcher\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows\Meme\Meme.dll "..\bin\Release-windows\launcher\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -129,15 +127,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>__DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\glfw\include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;IMGUI_IMPL_OPENGL_LOADER_GLAD;__DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\GLFW\include;3rdparty\glad\include;3rdparty\imgui;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -148,7 +145,7 @@
       <ImportLibrary>..\bin\Dist-windows\Meme\Meme.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows\Meme\Meme.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows\Meme\Meme.dll ..\bin\Dist-windows\launcher &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows\Meme\Meme.dll ..\bin\Dist-windows\launcher &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Dist-windows\Meme\Meme.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows\Meme\Meme.dll "..\bin\Dist-windows\launcher\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows\Meme\Meme.dll "..\bin\Dist-windows\launcher\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -160,10 +157,15 @@
     <ClInclude Include="src\Meme\Events\Event.h" />
     <ClInclude Include="src\Meme\Events\KeyEvent.h" />
     <ClInclude Include="src\Meme\Events\MouseEvent.h" />
+    <ClInclude Include="src\Meme\Input.h" />
+    <ClInclude Include="src\Meme\Keycodes.h" />
     <ClInclude Include="src\Meme\Layer.h" />
     <ClInclude Include="src\Meme\LayerStack.h" />
     <ClInclude Include="src\Meme\Log.h" />
     <ClInclude Include="src\Meme\Window.h" />
+    <ClInclude Include="src\Meme\imgui\imguiLayer.h" />
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Platform\Win32\Win32Input.h" />
     <ClInclude Include="src\Platform\Win32\Win32Window.h" />
     <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
@@ -172,6 +174,9 @@
     <ClCompile Include="src\Meme\Layer.cpp" />
     <ClCompile Include="src\Meme\LayerStack.cpp" />
     <ClCompile Include="src\Meme\Log.cpp" />
+    <ClCompile Include="src\Meme\imgui\imguiLayer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Platform\Win32\Win32Input.cpp" />
     <ClCompile Include="src\Platform\Win32\Win32Window.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -180,6 +185,12 @@
   <ItemGroup>
     <ProjectReference Include="3rdparty\GLFW\GLFW.vcxproj">
       <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="3rdparty\glad\glad.vcxproj">
+      <Project>{DD62977C-C999-980D-7286-7E105E9C140F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="3rdparty\imgui\imgui.vcxproj">
+      <Project>{0098A80F-6CAC-D0C0-352E-7420A101CDF1}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

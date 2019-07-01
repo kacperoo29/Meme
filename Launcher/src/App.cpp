@@ -10,12 +10,13 @@ public:
 
 	void OnUpdate() override
 	{
-		MEME_INFO("ExampleLayer::Update");
+		if (Meme::Input::IsKeyPressed(MEME_KEY_TAB))
+			MEME_TRACE("Tab is pressed!");
 	}
 
 	void OnEvent(Meme::Event& e) override
 	{
-		MEME_TRACE("{0}", e);
+		
 	}
 };
 
@@ -25,6 +26,7 @@ public:
 	Launcher()
 	{
 		PushLayer(new ExampleLayer());
+		PushLayer(new Meme::imguiLayer());
 	}
 	~Launcher()
 	{
