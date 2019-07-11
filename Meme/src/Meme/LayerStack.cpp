@@ -3,9 +3,8 @@
 
 namespace Meme {
 
-	LayerStack::LayerStack()
-	{
-		m_layerInsert = m_layers.begin();
+	LayerStack::LayerStack()	{
+		
 	}
 
 
@@ -17,7 +16,8 @@ namespace Meme {
 
 	void LayerStack::PushLayer(Layer * layer)
 	{
-		m_layerInsert = m_layers.emplace(m_layerInsert, layer);
+		m_layers.emplace(m_layers.begin() + m_layerInsertIndex, layer);
+		++m_layerInsertIndex;
 	}
 
 	void LayerStack::PushOverlay(Layer * overlay)
@@ -31,7 +31,7 @@ namespace Meme {
 		if (it != m_layers.end())
 		{
 			m_layers.erase(it);
-			m_layerInsert--;
+			--m_layerInsertIndex;
 		}
 	}
 

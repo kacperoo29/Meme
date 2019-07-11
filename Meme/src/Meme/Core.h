@@ -1,10 +1,17 @@
 #pragma once
 
 
-#ifdef _WINDLL
-#define MEME_API __declspec(dllexport)
+#ifdef _WIN32
+#if DYNAMIC_LINK
+	#ifdef _WINDLL
+		#define MEME_API __declspec(dllexport)
+	#else
+		#define MEME_API __declspec(dllimport)
+	#endif
 #else
-#define MEME_API __declspec(dllimport)
+	#define MEME_API
+#endif
+
 #endif
 
 #define BIT(x) (1 << x)

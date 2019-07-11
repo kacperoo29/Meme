@@ -78,8 +78,15 @@ project "glad"
 	}
 		
 	filter "system:windows"
-		systemversion "latest"
-		staticruntime "On"
+        systemversion "latest"
+
+    filter "configurations:Debug"
+        runtime "Debug"
+        symbols "on"
+
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "on"
 		
 project "imgui"
     kind "StaticLib"
@@ -113,14 +120,21 @@ project "imgui"
 		
 project "Meme"
 	location "Meme"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "stdafx.h"
 	pchsource "Meme/src/stdafx.cpp"
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
 
 	files 
 	{
@@ -134,6 +148,7 @@ project "Meme"
 		"%{prj.name}/3rdparty/GLFW/include",
 		"%{prj.name}/3rdparty/glad/include",
 		"%{prj.name}/3rdparty/imgui",
+		"%{prj.name}/3rdparty/glm",
 		"%{prj.name}/src"
 	}
 
@@ -145,42 +160,36 @@ project "Meme"
 		"opengl32.lib"
 	}
 
-	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "Off"
+	filter "system:windows"				
 		systemversion "latest"
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/launcher/\"")
-		}
-		
 		defines
 		{
-			"GLFW_INCLUDE_NONE",
-			"IMGUI_IMPL_OPENGL_LOADER_GLAD"
+			"GLFW_INCLUDE_NONE"			
 		}
 
 	filter "configurations:Debug"
 		defines "__DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 		
 	filter "configurations:Release"
 		defines "__RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 		
 	filter "configurations:Dist"
 		defines "__DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 		
 
 project "Launcher"
 	location "launcher"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -194,6 +203,8 @@ project "Launcher"
 	includedirs 
 	{
 		"Meme/3rdparty/spdlog/include",
+		"Meme/3rdparty/imgui",
+		"Meme/3rdparty/glm",
 		"Meme/src"
 	}
 
@@ -203,22 +214,21 @@ project "Launcher"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "Off"
+		cppdialect "C++17"		
 		systemversion "latest"
 
 	filter "configurations:Debug"
 		defines "__DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 		
 	filter "configurations:Release"
 		defines "__RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 		
 	filter "configurations:Dist"
 		defines "__DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 		

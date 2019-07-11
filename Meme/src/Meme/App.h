@@ -6,6 +6,7 @@
 #include "Meme/LayerStack.h"
 #include "Meme/Events/Event.h"
 #include "Meme/Events/ApplicationEvent.h"
+#include "Meme/imgui/imguiLayer.h"
 
 namespace Meme {
 	
@@ -29,6 +30,7 @@ namespace Meme {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_window;
+		imguiLayer* m_imguiLayer;
 		bool m_isRunning = true;
 		LayerStack m_layerStack;
 

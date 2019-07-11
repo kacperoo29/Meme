@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Meme/Window.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 struct GLFWwindow;
 
@@ -28,6 +29,7 @@ namespace Meme {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_window;
+		Context* m_context;
 
 		struct WindowData
 		{

@@ -4,6 +4,8 @@
 #include "Meme/Events/ApplicationEvent.h"
 #include "Meme/Events/MouseEvent.h"
 #include "Meme/Events/KeyEvent.h"
+#include "Meme/Renderer/Context.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -47,13 +49,11 @@ namespace Meme {
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
-		}
+		}		
 
 		m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_window);
-
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		assert(status, "Failed to initalize glad!");
+		m_context = new OpenGLContext(m_window);
+		m_context->Init();
 
 		glfwSetWindowUserPointer(m_window, &m_data);
 		SetVSync(true);
@@ -171,7 +171,7 @@ namespace Meme {
 	void Win32Window::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_window);
+		m_context->SwapBuffers();
 	}
 
 	void Win32Window::SetVSync(bool enabled)

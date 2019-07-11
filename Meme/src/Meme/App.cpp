@@ -18,11 +18,15 @@ namespace Meme {
 
 		m_window = std::unique_ptr<Window>(Window::Create());
 		m_window->SetEventCallback(BIND_EVENT_FN(App::OnEvent));
+
+		m_imguiLayer = new imguiLayer();
+		PushOverlay(m_imguiLayer);
 	}
 
 
 	App::~App()
 	{
+
 	}
 
 	void App::OnEvent(Event& e)
@@ -42,10 +46,15 @@ namespace Meme {
 	{
 		while (m_isRunning)
 		{
-			glClearColor(1, 0, 1, 1);
+			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			for (Layer* layer : m_layerStack)
 				layer->OnUpdate();
+
+			m_imguiLayer->Begin();
+			for (Layer* layer : m_layerStack)
+				layer->OnImguiRender();
+			m_imguiLayer->End();
 
 			m_window->OnUpdate();
 		}
