@@ -9,6 +9,7 @@
 #include "Meme/imgui/imguiLayer.h"
 #include "Meme/Renderer/Shader.h"
 #include "Meme/Renderer/Buffer.h"
+#include "Meme/Renderer/VertexArray.h"
 
 namespace Meme {
 	
@@ -37,11 +38,9 @@ namespace Meme {
 
 		static App* s_instance;
 
-		//TODO: TETING ONLY
-		uint32_t m_vertexArray;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
-		std::unique_ptr<Shader> m_Shader;
+		//TODO: TETING ONLY			
+		std::shared_ptr<VertexArray> m_SquareVA;
+		std::shared_ptr<Shader> m_Shader2;
 	};
 
 	App* CreateApplication();

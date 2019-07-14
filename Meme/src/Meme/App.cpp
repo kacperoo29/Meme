@@ -11,20 +11,6 @@ namespace Meme {
 
 	App* App::s_instance = nullptr;
 
-	static GLenum ShaderDataTypeToOGLType(ShaderDataType type)
-	{
-		switch (type)
-		{
-		case ShaderDataType::Float:			
-		case ShaderDataType::Vec2:			
-		case ShaderDataType::Vec3:			
-		case ShaderDataType::Vec4:			
-		case ShaderDataType::Mat3:			
-		case ShaderDataType::Mat4:
-			return GL_FLOAT;
-		}
-	}
-
 	App::App()
 	{
 		assert(!s_instance, "Application already exists!");
@@ -36,70 +22,56 @@ namespace Meme {
 		m_imguiLayer = new imguiLayer();
 		PushOverlay(m_imguiLayer);
 
-		glGenVertexArrays(1, &m_vertexArray);
-		glBindVertexArray(m_vertexArray);
+		m_SquareVA.reset(VertexArray::Create());
 
-		float vertices[] =
+		float square[] =
 		{
-			-0.5f, -0.5f, 0.0f, 1.0f, 0.5f, 0.5f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.5f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.2f, 0.5f, 0.7f, 1.0f
+			-0.5f, -0.5f, 0.0f, 
+			 0.5f, -0.5f, 0.0f, 
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		std::shared_ptr<VertexBuffer> squareVB; 
+		squareVB.reset(VertexBuffer::Create(square, sizeof(square)));
+		squareVB->SetLayout({
+			{ ShaderDataType::Vec3, "a_Position" }
+		});		
+		m_SquareVA->AddVertexBuffer(squareVB);
 
-		BufferLayout layout = {
-			{ ShaderDataType::Vec3, "a_Position" },
-			{ ShaderDataType::Vec4, "a_Color" }
-		};
+		uint32_t squareIndices[] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<IndexBuffer> squareIB;
+		squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		m_SquareVA->SetIndexBuffer(squareIB);
 
-		m_VertexBuffer->SetLayout(layout);
-
-		uint32_t index = 0;
-		for (const auto& element : m_VertexBuffer->GetLayout())
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, element.GetComponentCount(), ShaderDataTypeToOGLType(element.Type),
-				element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(), (const void*)element.Offset);
-
-			++index;
-		}
-
-		uint32_t indices[3] = { 0, 1, 2 };
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-
-		std::string vs = R"(
+		std::string vs2 = R"(
 			#version 330 core
 
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Color;
+			layout(location = 0) in vec3 a_Position;		
 			
-			out vec3 v_Position;
-			out vec4 v_Color;
+			out vec3 v_Position;		
 
 			void main()
 			{
-				v_Position = a_Position;
-				v_Color = a_Color;
+				v_Position = a_Position;				
 				gl_Position = vec4(a_Position, 1.0);
 			}
 		)";
 
-		std::string fs = R"(
+		std::string fs2 = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
 			
 			in vec3 v_Position;
-			in vec4 v_Color;
 
 			void main()
 			{				
-				color = v_Color;
+				color = vec4((v_Position + 0.3) * 0.5 , 1.0);
 			}
 		)";
 
-		m_Shader.reset(Shader::Create(vs, fs));
+		m_Shader2.reset(Shader::Create(vs2, fs2));
 	}
 
 
@@ -128,9 +100,9 @@ namespace Meme {
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			m_Shader->Bind();
-			glBindVertexArray(m_vertexArray);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			m_Shader2->Bind();
+			m_SquareVA->Bind();
+			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_layerStack)
 				layer->OnUpdate();
