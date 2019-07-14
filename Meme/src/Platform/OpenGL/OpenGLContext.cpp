@@ -16,7 +16,7 @@ namespace Meme {
 	void OpenGLContext::Init()
 	{
 		glfwMakeContextCurrent(m_handle);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		int32_t status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		assert(status, "Failed to initalize glad!");
 
 		MEME_CORE_INFO("OpenGL Renderer: {0}", glGetString(GL_RENDERER));

@@ -22,7 +22,7 @@ namespace Meme {
 
 	private:
 		std::vector<Layer*> m_layers;
-		unsigned int m_layerInsertIndex = 0;
+		uint32_t m_layerInsertIndex = 0;
 	};
 
 }

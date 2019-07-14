@@ -7,6 +7,8 @@
 #include "Meme/Events/Event.h"
 #include "Meme/Events/ApplicationEvent.h"
 #include "Meme/imgui/imguiLayer.h"
+#include "Meme/Renderer/Shader.h"
+#include "Meme/Renderer/Buffer.h"
 
 namespace Meme {
 	
@@ -15,7 +17,6 @@ namespace Meme {
 	public:
 		App();
 		virtual ~App();
-
 
 		void OnEvent(Event & e);
 		void Run();
@@ -35,6 +36,12 @@ namespace Meme {
 		LayerStack m_layerStack;
 
 		static App* s_instance;
+
+		//TODO: TETING ONLY
+		uint32_t m_vertexArray;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 	};
 
 	App* CreateApplication();

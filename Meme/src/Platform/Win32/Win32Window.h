@@ -15,8 +15,8 @@ namespace Meme {
 
 		void OnUpdate() override;
 
-		inline unsigned int GetWidth() const override { return m_data.width; }
-		inline unsigned int GetHeight() const override { return m_data.height; }
+		inline uint32_t GetWidth() const override { return m_data.width; }
+		inline uint32_t GetHeight() const override { return m_data.height; }
 		
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
@@ -34,7 +34,7 @@ namespace Meme {
 		struct WindowData
 		{
 			std::string title;
-			unsigned int width, height;
+			uint32_t width, height;
 			bool VSync;
 
 			EventCallbackFn EventCallback;

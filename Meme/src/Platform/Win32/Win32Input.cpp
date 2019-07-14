@@ -9,7 +9,7 @@ namespace Meme {
 
 	Input* Input::s_Instance = new Win32Input();
 
-	bool Win32Input::IsKeyPressedImpl(int keycode)
+	bool Win32Input::IsKeyPressedImpl(int32_t keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(App::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetKey(window, keycode);
@@ -17,7 +17,7 @@ namespace Meme {
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool Win32Input::IsMouseButtonPressedImpl(int button)
+	bool Win32Input::IsMouseButtonPressedImpl(int32_t button)
 	{
 		auto window = static_cast<GLFWwindow*>(App::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetMouseButton(window, button);

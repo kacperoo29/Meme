@@ -8,25 +8,25 @@ namespace Meme
 	class MEME_API KeyEvent : public Event
 	{
 	public:
-		inline int GetKeycode() const { return m_keycode; }
+		inline int32_t GetKeycode() const { return m_keycode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput);
 
 	protected:
-		KeyEvent(int keycode)
+		KeyEvent(int32_t keycode)
 			: m_keycode(keycode) 
 		{
 		}
-		int m_keycode;
+		int32_t m_keycode;
 	};
 
 	class MEME_API KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
+		KeyPressedEvent(int32_t keycode, int32_t repeatCount)
 			: KeyEvent(keycode), m_repeatCount(repeatCount) {}
 
-		inline int GetRepeatCount() const { return m_repeatCount; }
+		inline int32_t GetRepeatCount() const { return m_repeatCount; }
 
 		std::string ToString() const override
 		{
@@ -37,13 +37,13 @@ namespace Meme
 
 		EVENT_CLASS_TYPE(KeyPressed)
 	private:
-		int m_repeatCount;
+		int32_t m_repeatCount;
 	};
 
 	class MEME_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keycode)
+		KeyReleasedEvent(int32_t keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override
@@ -59,7 +59,7 @@ namespace Meme
 	class MEME_API KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(int keycode)
+		KeyTypedEvent(int32_t keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override

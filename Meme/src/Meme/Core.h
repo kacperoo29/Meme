@@ -16,6 +16,6 @@
 
 #define BIT(x) (1 << x)
 
-#define ARRAYSIZE(_ARR) ((int)(sizeof(_ARR)/sizeof(*_ARR)))
+#define ARRAYSIZE(_ARR) ((int32_t)(sizeof(_ARR)/sizeof(*_ARR)))
 #define BIND_EVENT_FUNCTION(fn) std::bind(&fn, this, std::placeholders::_1)
 

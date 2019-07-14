@@ -15,7 +15,7 @@
 #define MEME_MOUSE_BUTTON_RIGHT     MEME_MOUSE_BUTTON_2
 #define MEME_MOUSE_BUTTON_MIDDLE    MEME_MOUSE_BUTTON_3
 
-/* Printable keys */
+/* Print32_table keys */
 #define MEME_KEY_SPACE              32
 #define MEME_KEY_APOSTROPHE         39  /* ' */
 #define MEME_KEY_COMMA              44  /* , */
@@ -85,7 +85,7 @@
 #define MEME_KEY_CAPS_LOCK          280
 #define MEME_KEY_SCROLL_LOCK        281
 #define MEME_KEY_NUM_LOCK           282
-#define MEME_KEY_PRINT_SCREEN       283
+#define MEME_KEY_PRint32_t_SCREEN       283
 #define MEME_KEY_PAUSE              284
 #define MEME_KEY_F1                 290
 #define MEME_KEY_F2                 291

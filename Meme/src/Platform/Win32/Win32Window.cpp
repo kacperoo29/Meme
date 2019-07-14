@@ -14,7 +14,7 @@ namespace Meme {
 
 	static bool s_GLFWInitialized = false;
 
-	static void GLFWErrorCallback(int error, const char* description)
+	static void GLFWErrorCallback(int32_t error, const char* description)
 	{
 		MEME_CORE_ERROR("GLFW error ({0}): {1}", error, description);
 	}
@@ -44,14 +44,14 @@ namespace Meme {
 
 		if (!s_GLFWInitialized)
 		{
-			int success = glfwInit();
+			int32_t success = glfwInit();
 			assert(success, "Could not intialize GLFW!");
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}		
 
-		m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
+		m_window = glfwCreateWindow((int32_t)props.width, (int32_t)props.height, m_data.title.c_str(), nullptr, nullptr);
 		m_context = new OpenGLContext(m_window);
 		m_context->Init();
 
@@ -59,7 +59,7 @@ namespace Meme {
 		SetVSync(true);
 
 		glfwSetWindowSizeCallback(m_window,
-			[](GLFWwindow* window, int width, int height)
+			[](GLFWwindow* window, int32_t width, int32_t height)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				WindowResizeEvent e(width, height);
@@ -79,7 +79,7 @@ namespace Meme {
 		);
 
 		glfwSetKeyCallback(m_window,
-			[](GLFWwindow* window, int key, int scancode, int action, int mods)
+			[](GLFWwindow* window, int32_t key, int32_t scancode, int32_t action, int32_t mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -109,7 +109,7 @@ namespace Meme {
 
 
 		glfwSetMouseButtonCallback(m_window,
-			[](GLFWwindow* window, int button, int action, int mods)
+			[](GLFWwindow* window, int32_t button, int32_t action, int32_t mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -152,7 +152,7 @@ namespace Meme {
 		);
 
 		glfwSetCharCallback(m_window,
-			[](GLFWwindow* window, unsigned int c)
+			[](GLFWwindow* window, uint32_t c)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
