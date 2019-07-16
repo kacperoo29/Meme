@@ -1,18 +1,23 @@
 #pragma once
 
-namespace Meme {
+#include "RenderCommand.h"
+#include "Meme/Renderer/Shader.h"
+#include "Camera.h"
 
-	enum class RendererAPI
-	{
-		NONE = 0, OpenGL = 1
-	};
+namespace Meme {
 
 	class Renderer {
 	public:
-		inline static RendererAPI GetAPI() { return s_RendererAPI; }
+		static void BeginScene(Camera& camera);		
+		static void EndScene();
 
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray, 
+			const std::shared_ptr<Shader>& shader);
+
+		inline static RenderAPI::API GetAPI() { return RenderAPI::GetAPI(); }
+			
 	private:
-		static RendererAPI s_RendererAPI;
+		static Camera* s_Camera;
 
 	};
 }

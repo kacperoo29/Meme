@@ -8,8 +8,8 @@
 #include "Meme/Events/ApplicationEvent.h"
 #include "Meme/imgui/imguiLayer.h"
 #include "Meme/Renderer/Shader.h"
-#include "Meme/Renderer/Buffer.h"
 #include "Meme/Renderer/VertexArray.h"
+#include "Meme/Renderer/Camera.h"
 
 namespace Meme {
 	
@@ -24,6 +24,8 @@ namespace Meme {
 		
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
+
+		inline Camera& GetCamera() { return m_Camera; }
 
 		inline Window& GetWindow() { return *m_window; }
 		inline static App& Get() { return *s_instance; }
@@ -41,6 +43,8 @@ namespace Meme {
 		//TODO: TETING ONLY			
 		std::shared_ptr<VertexArray> m_SquareVA;
 		std::shared_ptr<Shader> m_Shader2;
+
+		Camera m_Camera;
 	};
 
 	App* CreateApplication();

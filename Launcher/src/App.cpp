@@ -21,13 +21,12 @@ public:
 	virtual void OnEvent(Meme::Event& e) override
 	{
 		
-	}
+	}	
 
 	virtual void OnImguiRender() override
 	{
-		ImGui::Begin("test");
-		ImGui::Text("SUKKKKKKK MAH KOK");
-		ImGui::End();
+		ImGui::Begin("test");			
+		ImGui::End();		
 	}
 
 };

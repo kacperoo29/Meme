@@ -11,11 +11,11 @@ namespace Meme {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::NONE: 
+		case RenderAPI::API::NONE:
 			assert(false, "RendererAPI::NONE not supported");
 			return nullptr;
 
-		case RendererAPI::OpenGL:
+		case  RenderAPI::API::OpenGL:
 			return new OpenGLVertexBuffer(verticies, size);
 		}
 
@@ -27,11 +27,11 @@ namespace Meme {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::NONE:
+		case RenderAPI::API::NONE:
 			assert(false, "RendererAPI::NONE not supported");
 			return nullptr;
 
-		case RendererAPI::OpenGL:
+		case RenderAPI::API::OpenGL:
 			return new OpenGLIndexBuffer(indices, count);
 		}
 

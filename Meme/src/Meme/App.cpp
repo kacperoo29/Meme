@@ -2,8 +2,9 @@
 
 #include "App.h"
 #include "Input.h"
+#include "Meme/Renderer/RenderCommand.h"
+#include "Meme/Renderer/Renderer.h"
 
-#include <glad/glad.h>
 
 namespace Meme {
 
@@ -12,6 +13,7 @@ namespace Meme {
 	App* App::s_instance = nullptr;
 
 	App::App()
+		: m_Camera(1280, 720, 65.0f)
 	{
 		assert(!s_instance, "Application already exists!");
 		s_instance = this;
@@ -49,12 +51,14 @@ namespace Meme {
 
 			layout(location = 0) in vec3 a_Position;		
 			
-			out vec3 v_Position;		
+			out vec3 v_Position;
+
+			uniform mat4 u_VP;		
 
 			void main()
 			{
 				v_Position = a_Position;				
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_VP * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -96,13 +100,13 @@ namespace Meme {
 	void App::Run()
 	{
 		while (m_isRunning)
-		{
-			glClearColor(0.2f, 0.2f, 0.2f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+		{			
+			RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
+			RenderCommand::Clear();
 
-			m_Shader2->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::BeginScene(m_Camera);				
+			Renderer::Submit(m_SquareVA, m_Shader2);
+			Renderer::EndScene();
 
 			for (Layer* layer : m_layerStack)
 				layer->OnUpdate();
