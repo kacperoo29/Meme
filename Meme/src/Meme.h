@@ -5,6 +5,7 @@
 #include "Meme/Layer.h"
 #include "Meme/Log.h"
 #include "Meme/Input.h"
+#include "Meme/Renderer/Renderer.h"
 
 #include "Meme/imgui/imguiLayer.h"
 

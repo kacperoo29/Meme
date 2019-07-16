@@ -23,9 +23,7 @@ namespace Meme {
 		void Run();
 		
 		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* overlay);
-
-		inline Camera& GetCamera() { return m_Camera; }
+		void PushOverlay(Layer* overlay);		
 
 		inline Window& GetWindow() { return *m_window; }
 		inline static App& Get() { return *s_instance; }
@@ -39,12 +37,6 @@ namespace Meme {
 		LayerStack m_layerStack;
 
 		static App* s_instance;
-
-		//TODO: TETING ONLY			
-		std::shared_ptr<VertexArray> m_SquareVA;
-		std::shared_ptr<Shader> m_Shader2;
-
-		Camera m_Camera;
 	};
 
 	App* CreateApplication();
