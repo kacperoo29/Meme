@@ -2,6 +2,7 @@
 
 #include "Meme/core.h"
 #include "Meme/Events/Event.h"
+#include "Meme/Core/Timestep.h"
 
 namespace Meme {
 
@@ -13,7 +14,7 @@ namespace Meme {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep timestep) {}
 		virtual void OnImguiRender() {}
 		virtual void OnEvent(Event& e) {}
 

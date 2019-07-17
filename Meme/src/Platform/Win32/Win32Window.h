@@ -22,13 +22,13 @@ namespace Meme {
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
-		inline virtual void* GetNativeWindow() const override { return m_window; }
+		inline virtual void* GetNativeWindow() const override { return m_Window; }
 
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 	private:
-		GLFWwindow* m_window;
+		GLFWwindow* m_Window;
 		Context* m_context;
 
 		struct WindowData

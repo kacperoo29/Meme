@@ -165,7 +165,8 @@ project "Meme"
 
 		defines
 		{
-			"GLFW_INCLUDE_NONE"			
+			"GLFW_INCLUDE_NONE",			
+			"_GLFW_USE_DWM_SWAP_INTERVAL=1"
 		}
 
 	filter "configurations:Debug"

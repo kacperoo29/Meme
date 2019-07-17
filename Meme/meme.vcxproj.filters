@@ -4,14 +4,23 @@
     <Filter Include="Meme">
       <UniqueIdentifier>{C904897C-B53B-8A0D-5E28-70104A3E060F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Meme\Core">
+      <UniqueIdentifier>{C18E21E7-2DF9-D55D-7637-8703E2E0B3B2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Meme\Events">
       <UniqueIdentifier>{8D54E23A-F909-5B30-82FE-5407EEB25134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Meme\Renderer">
+      <UniqueIdentifier>{8FBAC473-FB7A-40AA-C4B5-892730358586}</UniqueIdentifier>
     </Filter>
     <Filter Include="Meme\imgui">
       <UniqueIdentifier>{F3C401CE-DF7C-431B-4884-1C77345BDE0B}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Win32">
       <UniqueIdentifier>{8C36D494-7804-C89A-6198-38C14D05A4FF}</UniqueIdentifier>
@@ -24,6 +33,9 @@
     </ClInclude>
     <ClInclude Include="src\Meme\Core.h">
       <Filter>Meme</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Core\Timestep.h">
+      <Filter>Meme\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Meme\Entry.h">
       <Filter>Meme</Filter>
@@ -55,11 +67,50 @@
     <ClInclude Include="src\Meme\Log.h">
       <Filter>Meme</Filter>
     </ClInclude>
+    <ClInclude Include="src\Meme\Renderer\Buffer.h">
+      <Filter>Meme\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Renderer\Camera.h">
+      <Filter>Meme\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Renderer\Context.h">
+      <Filter>Meme\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Renderer\RenderAPI.h">
+      <Filter>Meme\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Renderer\RenderCommand.h">
+      <Filter>Meme\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Renderer\Renderer.h">
+      <Filter>Meme\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Renderer\Shader.h">
+      <Filter>Meme\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Meme\Renderer\VertexArray.h">
+      <Filter>Meme\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Meme\Window.h">
       <Filter>Meme</Filter>
     </ClInclude>
     <ClInclude Include="src\Meme\imgui\imguiLayer.h">
       <Filter>Meme\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRenderAPI.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Win32\Win32Input.h">
       <Filter>Platform\Win32</Filter>
@@ -68,19 +119,7 @@
       <Filter>Platform\Win32</Filter>
     </ClInclude>
     <ClInclude Include="src\stdafx.h" />
-    <ClInclude Include="src\Meme\Renderer\Context.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Meme\Renderer\Shader.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="src\Meme\Renderer\Buffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Meme\Renderer\Renderer.h" />
-    <ClInclude Include="src\Meme\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Meme\Renderer\RenderAPI.h" />
-    <ClInclude Include="src\Meme\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRenderAPI.h" />
-    <ClInclude Include="src\Meme\Renderer\Camera.h" />
+    <ClInclude Include="src\Meme\Core\File.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Meme\App.cpp">
@@ -95,11 +134,47 @@
     <ClCompile Include="src\Meme\Log.cpp">
       <Filter>Meme</Filter>
     </ClCompile>
+    <ClCompile Include="src\Meme\Renderer\Buffer.cpp">
+      <Filter>Meme\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Meme\Renderer\Camera.cpp">
+      <Filter>Meme\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Meme\Renderer\RenderAPI.cpp">
+      <Filter>Meme\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Meme\Renderer\RenderCommand.cpp">
+      <Filter>Meme\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Meme\Renderer\Renderer.cpp">
+      <Filter>Meme\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Meme\Renderer\Shader.cpp">
+      <Filter>Meme\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Meme\Renderer\VertexArray.cpp">
+      <Filter>Meme\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Meme\imgui\imguiBuild.cpp">
       <Filter>Meme\imgui</Filter>
     </ClCompile>
     <ClCompile Include="src\Meme\imgui\imguiLayer.cpp">
       <Filter>Meme\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRenderAPI.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Win32\Win32Input.cpp">
       <Filter>Platform\Win32</Filter>
@@ -108,17 +183,6 @@
       <Filter>Platform\Win32</Filter>
     </ClCompile>
     <ClCompile Include="src\stdafx.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\Meme\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Meme\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Meme\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Meme\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Meme\Renderer\RenderAPI.cpp" />
-    <ClCompile Include="src\Meme\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRenderAPI.cpp" />
-    <ClCompile Include="src\Meme\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Meme\Core\File.cpp" />
   </ItemGroup>
 </Project>

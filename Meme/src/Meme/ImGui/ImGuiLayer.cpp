@@ -13,17 +13,17 @@
 
 
 namespace Meme {
-	imguiLayer::imguiLayer()
+	ImGuiLayer::ImGuiLayer()
 		: Layer("imgui")
 	{
 	}
 
 
-	imguiLayer::~imguiLayer()
+	ImGuiLayer::~ImGuiLayer()
 	{
 	}
 
-	void imguiLayer::OnAttach()
+	void ImGuiLayer::OnAttach()
 	{	
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -51,27 +51,27 @@ namespace Meme {
 		ImGui_ImplOpenGL3_Init("#version 330");
 	}
 
-	void imguiLayer::OnDetach()
+	void ImGuiLayer::OnDetach()
 	{
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 	}
 
-	void imguiLayer::OnImguiRender()
+	void ImGuiLayer::OnImguiRender()
 	{
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
 	}
 	   
-	void imguiLayer::Begin()
+	void ImGuiLayer::Begin()
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 	}
 
-	void imguiLayer::End()
+	void ImGuiLayer::End()
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		App& app = App::Get();

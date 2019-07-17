@@ -2,9 +2,7 @@
 
 #include "App.h"
 #include "Input.h"
-#include "Meme/Renderer/RenderCommand.h"
-#include "Meme/Renderer/Renderer.h"
-
+#include <chrono>
 
 namespace Meme {
 
@@ -17,10 +15,11 @@ namespace Meme {
 		assert(!s_instance, "Application already exists!");
 		s_instance = this;
 
-		m_window = std::unique_ptr<Window>(Window::Create());
-		m_window->SetEventCallback(BIND_EVENT_FN(App::OnEvent));	
+		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window->SetEventCallback(BIND_EVENT_FN(App::OnEvent));	
+		m_Window->SetVSync(true);
 
-		m_imguiLayer = new imguiLayer();
+		m_imguiLayer = new ImGuiLayer();
 		PushOverlay(m_imguiLayer);		
 			   		 		
 	}
@@ -48,15 +47,23 @@ namespace Meme {
 	{
 		while (m_isRunning)
 		{			
+			auto start = std::chrono::high_resolution_clock::now();
+			Timestep timestep = m_LastFrameTime;			
+
 			for (Layer* layer : m_layerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
 
 			m_imguiLayer->Begin();
 			for (Layer* layer : m_layerStack)
 				layer->OnImguiRender();
 			m_imguiLayer->End();
 
-			m_window->OnUpdate();
+			m_Window->OnUpdate();
+
+			auto end = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<float> diff = end - start;
+			m_LastFrameTime = diff.count();
+
 		}
 	}
 

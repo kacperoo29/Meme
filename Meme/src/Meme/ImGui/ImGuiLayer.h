@@ -8,11 +8,11 @@
 
 namespace Meme {
 
-	class MEME_API imguiLayer : public Layer
+	class MEME_API ImGuiLayer : public Layer
 	{
 	public:
-		imguiLayer();
-		~imguiLayer();
+		ImGuiLayer();
+		~ImGuiLayer();
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;

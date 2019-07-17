@@ -76,7 +76,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;__DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;_GLFW_USE_DWM_SWAP_INTERVAL=1;__DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\GLFW\include;3rdparty\glad\include;3rdparty\imgui;3rdparty\glm;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -96,7 +96,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;__RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;_GLFW_USE_DWM_SWAP_INTERVAL=1;__RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\GLFW\include;3rdparty\glad\include;3rdparty\imgui;3rdparty\glm;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -120,7 +120,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;__DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLFW_INCLUDE_NONE;_GLFW_USE_DWM_SWAP_INTERVAL=1;__DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>3rdparty\spdlog\include;3rdparty\GLFW\include;3rdparty\glad\include;3rdparty\imgui;3rdparty\glm;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -143,6 +143,8 @@
     <ClInclude Include="src\Meme.h" />
     <ClInclude Include="src\Meme\App.h" />
     <ClInclude Include="src\Meme\Core.h" />
+    <ClInclude Include="src\Meme\Core\File.h" />
+    <ClInclude Include="src\Meme\Core\Timestep.h" />
     <ClInclude Include="src\Meme\Entry.h" />
     <ClInclude Include="src\Meme\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Meme\Events\Event.h" />
@@ -174,11 +176,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Meme\App.cpp" />
+    <ClCompile Include="src\Meme\Core\File.cpp" />
     <ClCompile Include="src\Meme\Layer.cpp" />
     <ClCompile Include="src\Meme\LayerStack.cpp" />
     <ClCompile Include="src\Meme\Log.cpp" />
-    <ClCompile Include="src\Meme\imgui\imguiBuild.cpp" />
-    <ClCompile Include="src\Meme\imgui\imguiLayer.cpp" />
     <ClCompile Include="src\Meme\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Meme\Renderer\Camera.cpp" />
     <ClCompile Include="src\Meme\Renderer\RenderAPI.cpp" />
@@ -186,6 +187,8 @@
     <ClCompile Include="src\Meme\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Meme\Renderer\Shader.cpp" />
     <ClCompile Include="src\Meme\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Meme\imgui\imguiBuild.cpp" />
+    <ClCompile Include="src\Meme\imgui\imguiLayer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRenderAPI.cpp" />

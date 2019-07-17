@@ -51,14 +51,14 @@ namespace Meme {
 			s_GLFWInitialized = true;
 		}		
 
-		m_window = glfwCreateWindow((int32_t)props.width, (int32_t)props.height, m_data.title.c_str(), nullptr, nullptr);
-		m_context = new OpenGLContext(m_window);
+		m_Window = glfwCreateWindow((int32_t)props.width, (int32_t)props.height, m_data.title.c_str(), nullptr, nullptr);
+		m_context = new OpenGLContext(m_Window);
 		m_context->Init();
 
-		glfwSetWindowUserPointer(m_window, &m_data);
+		glfwSetWindowUserPointer(m_Window, &m_data);
 		SetVSync(true);
 
-		glfwSetWindowSizeCallback(m_window,
+		glfwSetWindowSizeCallback(m_Window,
 			[](GLFWwindow* window, int32_t width, int32_t height)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -69,7 +69,7 @@ namespace Meme {
 			}
 		);
 
-		glfwSetWindowCloseCallback(m_window,
+		glfwSetWindowCloseCallback(m_Window,
 			[](GLFWwindow* window)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -78,7 +78,7 @@ namespace Meme {
 			}
 		);
 
-		glfwSetKeyCallback(m_window,
+		glfwSetKeyCallback(m_Window,
 			[](GLFWwindow* window, int32_t key, int32_t scancode, int32_t action, int32_t mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -108,7 +108,7 @@ namespace Meme {
 		);
 
 
-		glfwSetMouseButtonCallback(m_window,
+		glfwSetMouseButtonCallback(m_Window,
 			[](GLFWwindow* window, int32_t button, int32_t action, int32_t mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -131,7 +131,7 @@ namespace Meme {
 			}
 		);
 
-		glfwSetScrollCallback(m_window,
+		glfwSetScrollCallback(m_Window,
 			[](GLFWwindow* window, double xOffset, double yOffset)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -141,7 +141,7 @@ namespace Meme {
 			}
 		);
 
-		glfwSetCursorPosCallback(m_window,
+		glfwSetCursorPosCallback(m_Window,
 			[](GLFWwindow* window, double xPos, double yPos)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -151,7 +151,7 @@ namespace Meme {
 			}
 		);
 
-		glfwSetCharCallback(m_window,
+		glfwSetCharCallback(m_Window,
 			[](GLFWwindow* window, uint32_t c)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -165,7 +165,7 @@ namespace Meme {
 
 	void Win32Window::Shutdown()
 	{
-		glfwDestroyWindow(m_window);
+		glfwDestroyWindow(m_Window);
 	}
 
 	void Win32Window::OnUpdate()

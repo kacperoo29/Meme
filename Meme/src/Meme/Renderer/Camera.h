@@ -9,14 +9,15 @@ namespace Meme {
 		Camera() {}
 		Camera(uint32_t windowWidth, uint32_t windowHeight, float fov);
 
-		void SetPosition(const glm::vec3& position) 
-		{ m_Position = position; CalculateViewMatrix(); }
-		void SetRotation(const glm::vec2& rotation) 
-		{ m_Rotation = rotation; CalculateViewMatrix(); }
+		void SetFOV(float fov);
+
+		void SetPosition(const glm::vec3& position);
+		void SetRotation(const glm::vec2& rotation);	
+
+		void OnWindowResize();
 
 		inline const glm::vec2& GetRotation() const { return m_Rotation; }
 		inline const glm::vec3& GetPosition() const { return m_Position; }
-
 
 		inline const glm::mat4& GetVP() const { return m_VP; }
 		inline const glm::mat4& GetViewMatrix() const { return m_View; }
@@ -24,6 +25,9 @@ namespace Meme {
 
 	private:
 		void CalculateViewMatrix();
+		void CalculateProjectionMatrix();
+
+		float m_Fov;
 
 		glm::vec2 m_Rotation = { 0.f, 0.f };
 		glm::vec3 m_Position = { 0.f, 0.f, -1.f };
