@@ -23,6 +23,22 @@ namespace Meme {
 		return nullptr;
 	}
 
+	VertexBuffer* VertexBuffer::Create(glm::vec3* verticies, uint32_t size)
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RenderAPI::API::NONE:
+			assert(false, "RendererAPI::NONE not supported");
+			return nullptr;
+
+		case  RenderAPI::API::OpenGL:
+			return new OpenGLVertexBuffer(verticies, size);
+		}
+
+		assert(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
 	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
 		switch (Renderer::GetAPI())

@@ -57,6 +57,7 @@ namespace Meme {
 
 		glfwSetWindowUserPointer(m_Window, &m_data);
 		SetVSync(true);
+		glEnable(GL_DEPTH_TEST);
 
 		glfwSetWindowSizeCallback(m_Window,
 			[](GLFWwindow* window, int32_t width, int32_t height)

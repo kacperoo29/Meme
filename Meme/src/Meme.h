@@ -6,6 +6,7 @@
 #include "Meme/Log.h"
 #include "Meme/Input.h"
 #include "Meme/Renderer/Renderer.h"
+#include "Meme/Renderer/Mesh.h"
 #include "Meme/Core/Timestep.h"
 #include "Meme/Core/File.h"
 

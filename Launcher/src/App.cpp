@@ -15,29 +15,24 @@ public:
 
 		m_SquareVA.reset(Meme::VertexArray::Create());
 
-		float square[] =
-		{
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
-		};
+		Meme::Mesh model("res/model/kek.obj");
 
-		std::shared_ptr<Meme::VertexBuffer> squareVB;
-		squareVB.reset(Meme::VertexBuffer::Create(square, sizeof(square)));
+		std::shared_ptr<Meme::VertexBuffer> squareVB;		
+		squareVB.reset(Meme::VertexBuffer::Create(&model.GetVertices()[0], model.GetVertices().size() * sizeof(glm::vec3)));
 		squareVB->SetLayout({
 			{ Meme::ShaderDataType::Vec3, "a_Position" }
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
-		uint32_t squareIndices[] = { 0, 1, 2, 2, 3, 0 };
 		std::shared_ptr<Meme::IndexBuffer> squareIB;
-		squareIB.reset(Meme::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		squareIB.reset(Meme::IndexBuffer::Create(&model.GetVertexIndices()[0], model.GetVertexIndices().size()));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
-		std::string vs2 = Meme::File("res/basic.vs");
-		std::string fs2 = Meme::File("res/basic.fs");
+		std::string vs2 = Meme::File("res/shader/basic.vs");
+		std::string fs2 = Meme::File("res/shader/basic.fs");
 		m_Shader2.reset(Meme::Shader::Create(vs2, fs2));
+
+		Meme::RenderCommand::SetClearColor({ 0.8f, 0.4f, 0.8f, 1.0f });
 	}
 
 	virtual void OnUpdate(Meme::Timestep timestep) override
@@ -60,10 +55,8 @@ public:
 
 		m_Camera->SetPosition(m_CameraPosition);
 		m_Camera->SetRotation(m_CameraRotation);
-
-		Meme::RenderCommand::SetClearColor({ 0.8f, 0.4f, 0.8f, 1.0f });
+		
 		Meme::RenderCommand::Clear();
-
 		Meme::Renderer::BeginScene(*m_Camera);
 		Meme::Renderer::Submit(m_SquareVA, m_Shader2);
 		Meme::Renderer::EndScene();

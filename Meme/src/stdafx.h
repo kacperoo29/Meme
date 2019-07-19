@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <fstream>
+#include <glm/glm.hpp>
 
 #include "Meme/Log.h"
 

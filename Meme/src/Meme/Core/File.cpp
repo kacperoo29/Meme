@@ -12,6 +12,7 @@ namespace Meme {
 			m_Content += buffer;
 			m_Content += '\n';
 		}
+		in.close();
 	}
 
 	void File::ReadFile(const std::string& src)
@@ -23,5 +24,6 @@ namespace Meme {
 			m_Content += buffer;
 			m_Content += '\n';
 		}
+		in.close();
 	}
 }

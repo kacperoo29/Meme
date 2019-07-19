@@ -115,6 +115,7 @@ namespace Meme {
 		virtual const BufferLayout& GetLayout() const = 0;
 
 		static VertexBuffer* Create(float* verticies, uint32_t size);
+		static VertexBuffer* Create(glm::vec3* verticies, uint32_t size);
 	};
 
 	class IndexBuffer
