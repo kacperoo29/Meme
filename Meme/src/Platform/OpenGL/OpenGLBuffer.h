@@ -7,8 +7,9 @@ namespace Meme {
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(float* verticies, uint32_t size);
-		OpenGLVertexBuffer(glm::vec3* verticies, uint32_t size);
+		OpenGLVertexBuffer(float* vertices, uint32_t size);
+		OpenGLVertexBuffer(glm::vec3* vertices, uint32_t size);
+
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void Bind() const override;

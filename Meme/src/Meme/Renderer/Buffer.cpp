@@ -7,7 +7,7 @@
 
 namespace Meme {
 
-	VertexBuffer* VertexBuffer::Create(float* verticies, uint32_t size)
+	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -16,14 +16,14 @@ namespace Meme {
 			return nullptr;
 
 		case  RenderAPI::API::OpenGL:
-			return new OpenGLVertexBuffer(verticies, size);
+			return new OpenGLVertexBuffer(vertices, size);
 		}
 
 		assert(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	VertexBuffer* VertexBuffer::Create(glm::vec3* verticies, uint32_t size)
+	VertexBuffer* VertexBuffer::Create(glm::vec3* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -32,7 +32,7 @@ namespace Meme {
 			return nullptr;
 
 		case  RenderAPI::API::OpenGL:
-			return new OpenGLVertexBuffer(verticies, size);
+			return new OpenGLVertexBuffer(vertices, size);
 		}
 
 		assert(false, "Unknown RendererAPI!");

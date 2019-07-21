@@ -15,17 +15,20 @@ public:
 
 		m_SquareVA.reset(Meme::VertexArray::Create());
 
-		Meme::Mesh model("res/model/kek.obj");
+		Meme::Mesh model("res/model/sphere.obj");
 
 		std::shared_ptr<Meme::VertexBuffer> squareVB;		
-		squareVB.reset(Meme::VertexBuffer::Create(&model.GetVertices()[0], model.GetVertices().size() * sizeof(glm::vec3)));
+		squareVB.reset(Meme::VertexBuffer::Create(&model.GetVertices()[0].Position, 
+			model.GetVertices().size() * (2 * sizeof(glm::vec3) + sizeof(glm::vec2))));
 		squareVB->SetLayout({
-			{ Meme::ShaderDataType::Vec3, "a_Position" }
+			{ Meme::ShaderDataType::Vec3, "a_Position" },
+			{ Meme::ShaderDataType::Vec2, "a_TexCoord" },
+			{ Meme::ShaderDataType::Vec3, "a_Normal" }
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		std::shared_ptr<Meme::IndexBuffer> squareIB;
-		squareIB.reset(Meme::IndexBuffer::Create(&model.GetVertexIndices()[0], model.GetVertexIndices().size()));
+		squareIB.reset(Meme::IndexBuffer::Create(&model.GetIndices()[0], model.GetIndices().size()));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vs2 = Meme::File("res/shader/basic.vs");
