@@ -149,6 +149,7 @@ project "Meme"
 		"%{prj.name}/3rdparty/glad/include",
 		"%{prj.name}/3rdparty/imgui",
 		"%{prj.name}/3rdparty/glm",
+		"%{prj.name}/3rdparty/stb",
 		"%{prj.name}/src"
 	}
 
@@ -166,7 +167,8 @@ project "Meme"
 		defines
 		{
 			"GLFW_INCLUDE_NONE",			
-			"_GLFW_USE_DWM_SWAP_INTERVAL=1"
+			"_GLFW_USE_DWM_SWAP_INTERVAL=1",
+			"STB_IMAGE_IMPLEMENTATION"
 		}
 
 	filter "configurations:Debug"
@@ -205,7 +207,8 @@ project "Launcher"
 	{
 		"Meme/3rdparty/spdlog/include",
 		"Meme/3rdparty/imgui",
-		"Meme/3rdparty/glm",
+		"Meme/3rdparty/glm",		
+		"Meme/3rdparty/spd",		
 		"Meme/src"
 	}
 

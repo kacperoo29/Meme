@@ -10,3 +10,6 @@
 [submodule "Meme/3rdparty/glm"]
 	path = Meme/3rdparty/glm
 	url = https://github.com/g-truc/glm
+[submodule "Meme/3rdparty/tinyxml2"]
+	path = Meme/3rdparty/tinyxml2
+	url = https://github.com/leethomason/tinyxml2

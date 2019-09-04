@@ -1,25 +1,44 @@
 #include <meme.h>
 
+#include <glm/ext/matrix_transform.hpp>
+
 #include "imgui.h"
 
 class ExampleLayer : public Meme::Layer 
 {
 public:
 	ExampleLayer()
-		: Layer("Example")
+		: Layer("Example"), m_CubePosition(0.0f)
 	{	
 		m_Camera = std::make_shared<Meme::Camera>(
 			Meme::App::Get().GetWindow().GetWidth(),
 			Meme::App::Get().GetWindow().GetHeight(),
 			65.f);
 
+	
+		m_SkyboxVA.reset(Meme::VertexArray::Create());
+		Meme::Mesh skybox;
+		skybox.LoadOBJ("res/model/skybox.obj");
+
+		Meme::Ref<Meme::VertexBuffer> skyboxVB;
+		skyboxVB.reset(Meme::VertexBuffer::Create(skybox.GetVerticesPointer(), skybox.GetVerticesSize()));
+		skyboxVB->SetLayout({
+			{ Meme::ShaderDataType::Vec3, "a_Position" },
+			{ Meme::ShaderDataType::Vec2, "a_TexCoord" },
+			{ Meme::ShaderDataType::Vec3, "a_Normal" }
+			});
+		m_SkyboxVA->AddVertexBuffer(skyboxVB);
+
+		Meme::Ref<Meme::IndexBuffer> skyboxIB;
+		skyboxIB.reset(Meme::IndexBuffer::Create(skybox.GetIndicesPointer(), skybox.GetIndicesSize()));
+		m_SkyboxVA->SetIndexBuffer(skyboxIB);
+
 		m_SquareVA.reset(Meme::VertexArray::Create());
+		Meme::Mesh model;
+		model.LoadOBJ("res/model/cube.obj");
 
-		Meme::Mesh model("res/model/sphere.obj");
-
-		std::shared_ptr<Meme::VertexBuffer> squareVB;		
-		squareVB.reset(Meme::VertexBuffer::Create(&model.GetVertices()[0].Position, 
-			model.GetVertices().size() * (2 * sizeof(glm::vec3) + sizeof(glm::vec2))));
+		Meme::Ref<Meme::VertexBuffer> squareVB;
+		squareVB.reset(Meme::VertexBuffer::Create(model.GetVerticesPointer(), model.GetVerticesSize()));
 		squareVB->SetLayout({
 			{ Meme::ShaderDataType::Vec3, "a_Position" },
 			{ Meme::ShaderDataType::Vec2, "a_TexCoord" },
@@ -27,48 +46,51 @@ public:
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
-		std::shared_ptr<Meme::IndexBuffer> squareIB;
-		squareIB.reset(Meme::IndexBuffer::Create(&model.GetIndices()[0], model.GetIndices().size()));
+		Meme::Ref<Meme::IndexBuffer> squareIB;
+		squareIB.reset(Meme::IndexBuffer::Create(model.GetIndicesPointer(), model.GetIndicesSize()));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
-		std::string vs2 = Meme::File("res/shader/basic.vs");
-		std::string fs2 = Meme::File("res/shader/basic.fs");
-		m_Shader2.reset(Meme::Shader::Create(vs2, fs2));
+		m_SkyboxShader.reset(Meme::Shader::Create("res/shader/skybox.vs", "res/shader/skybox.fs"));
+		m_Shader.reset(Meme::Shader::Create("res/shader/basic.vs", "res/shader/basic.fs"));
+
+		m_SkyboxCubemap.reset(Meme::Cubemap::Create("res/texture/skybox"));
+		m_Texture.reset(Meme::Texture::Create("res/texture/cube.jpg"));
 
 		Meme::RenderCommand::SetClearColor({ 0.8f, 0.4f, 0.8f, 1.0f });
 	}
 
 	virtual void OnUpdate(Meme::Timestep timestep) override
-	{
-		MEME_TRACE("Delta time: {0}s, ({1}ms)", timestep.GetSeconds(), timestep.GetMilliseconds());
-		if (Meme::Input::IsKeyPressed(MEME_KEY_A))
-			m_CameraPosition.x -= 0.5f * timestep;
-		else if (Meme::Input::IsKeyPressed(MEME_KEY_D))
-			m_CameraPosition.x += 0.5f * timestep;
-
-		if (Meme::Input::IsKeyPressed(MEME_KEY_W))
-			m_CameraPosition.z += 0.5f * timestep;
-		else if (Meme::Input::IsKeyPressed(MEME_KEY_S))
-			m_CameraPosition.z -= 0.5f * timestep;
-
-		if (Meme::Input::IsKeyPressed(MEME_KEY_Q))
-			m_CameraRotation.y -= 25.0f * timestep;
-		else if (Meme::Input::IsKeyPressed(MEME_KEY_E))
-			m_CameraRotation.y += 25.0f * timestep;
-
+	{		
 		m_Camera->SetPosition(m_CameraPosition);
 		m_Camera->SetRotation(m_CameraRotation);
 		
 		Meme::RenderCommand::Clear();
-		Meme::Renderer::BeginScene(*m_Camera);
-		Meme::Renderer::Submit(m_SquareVA, m_Shader2);
+		Meme::Renderer::BeginScene(*m_Camera);		
+
+		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f));
+
+		for (int z = 0; z < 5; ++z)
+		{
+			for (int y = 0; y < 5; ++y)
+			{
+				for (int x = 0; x < 5; ++x)
+				{
+					glm::vec3 pos(x * .5f, y * .5f, z * .5f);
+					pos += m_CubePosition;
+					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+					Meme::Renderer::Submit(m_SquareVA, m_Shader, m_Texture, transform);
+				}
+			}
+		}
+		
+		Meme::Renderer::SubmitSkybox(m_SkyboxVA, m_SkyboxShader, m_SkyboxCubemap);
 		Meme::Renderer::EndScene();
 	}	
 
 	bool OnKeyPressed(Meme::KeyPressedEvent& e) 
 	{
 		switch (e.GetKeycode())
-		{
+		{	
 
 		}
 
@@ -87,19 +109,26 @@ public:
 	virtual void OnImguiRender() override
 	{
 		ImGui::Begin("test");		
-		ImGui::SliderFloat3("position", &m_CameraPosition.x, -5.f, 5.f);
-		ImGui::SliderFloat2("rotation", &m_CameraRotation.x, -180.f, 180.f);
+		ImGui::SliderFloat3("Camera Position", &m_CameraPosition.x, -5.f, 5.f);
+		ImGui::SliderFloat2("Camera Rotation", &m_CameraRotation.x, -180.f, 180.f);
+		ImGui::SliderFloat3("Cube Position", &m_CubePosition.x, -5.f, 5.f);
+		
 		ImGui::End();	
 	}
 
 private:
-	glm::vec3 m_CameraPosition = { 0.0f, 0.0f, -1.0f };
+	glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
 	glm::vec2 m_CameraRotation = { 0.0f, 0.0f };
 
-	std::shared_ptr<Meme::VertexArray> m_SquareVA;
-	std::shared_ptr<Meme::Shader> m_Shader2;
-	std::shared_ptr<Meme::Camera> m_Camera;
+	Meme::Ref<Meme::VertexArray> m_SquareVA;
+	Meme::Ref<Meme::Shader> m_Shader;
+	Meme::Ref<Meme::Texture> m_Texture;	
+	Meme::Ref<Meme::VertexArray> m_SkyboxVA;
+	Meme::Ref<Meme::Shader> m_SkyboxShader;
+	Meme::Ref<Meme::Cubemap> m_SkyboxCubemap;
+	Meme::Ref<Meme::Camera> m_Camera;
 
+	glm::vec3 m_CubePosition;
 };
 
 class Launcher : public Meme::App

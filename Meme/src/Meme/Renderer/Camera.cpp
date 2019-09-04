@@ -14,7 +14,7 @@ namespace Meme {
 		m_Projection = glm::perspectiveFov(glm::radians(fov),
 			(float)windowWidth,
 			(float)windowHeight,
-			1.0f,
+			0.1f,
 			25.0f);
 		
 		glm::mat4 viewTranslation = glm::translate(glm::mat4(1.0f), m_Position);
@@ -61,7 +61,7 @@ namespace Meme {
 		m_Projection = glm::perspectiveFov(glm::radians(m_Fov),
 			(float)App::Get().GetWindow().GetWidth(),
 			(float)App::Get().GetWindow().GetHeight(),
-			1.0f,
+			0.1f,
 			25.0f);
 
 		m_VP = m_Projection * m_View;

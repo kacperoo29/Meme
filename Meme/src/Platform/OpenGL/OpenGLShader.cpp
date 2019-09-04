@@ -11,9 +11,20 @@ namespace Meme {
 		uint32_t vs, fs;
 
 		vs = glCreateShader(GL_VERTEX_SHADER);
-		const char* src = (const char*)vertexSrc.c_str();
+
+		std::string temp;
+		std::ifstream in(vertexSrc);
+		in.seekg(0, std::ios::end);
+		temp.resize(in.tellg());
+		in.seekg(0);
+		in.read(temp.data(), temp.size());
+		in.close();
+
+		const char* src = (const char*)temp.c_str();
 		glShaderSource(vs, 1, &src, 0);
 		glCompileShader(vs);
+
+		temp.clear();
 
 		int32_t isCompiled;
 		glGetShaderiv(vs, GL_COMPILE_STATUS, &isCompiled);
@@ -33,7 +44,15 @@ namespace Meme {
 		}
 
 		fs = glCreateShader(GL_FRAGMENT_SHADER);
-		src = (const char*)fragmentSrc.c_str();
+		
+		in.open(fragmentSrc);		
+		in.seekg(0, std::ios::end);
+		temp.resize(in.tellg());
+		in.seekg(0);
+		in.read(temp.data(), temp.size());
+		in.close();
+
+		src = (const char*)temp.c_str();
 		glShaderSource(fs, 1, &src, 0);
 		glCompileShader(fs);
 		
@@ -98,6 +117,12 @@ namespace Meme {
 	void OpenGLShader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	void OpenGLShader::UploadUniform3f(const std::string& name, const glm::vec3& vector)
+	{
+		uint32_t location = glGetUniformLocation(m_ID, name.c_str());
+		glUniform3f(location, vector.x, vector.y, vector.z);
 	}
 
 	void OpenGLShader::UploadUniformMat4f(const std::string& name, const glm::mat4& matrix)

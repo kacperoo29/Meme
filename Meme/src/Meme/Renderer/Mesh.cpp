@@ -1,21 +1,20 @@
 #include "stdafx.h"
 #include "Mesh.h"
 
-#include "Meme/Core/File.h"
-
 namespace Meme {
 
-	Mesh::Mesh(const std::string& objPath)
+	void Mesh::LoadOBJ(const std::string& objPath)
 	{
-		File obj(objPath);
+		std::ifstream source(objPath);
+		if (!source)
+			return;
 
 		std::vector<glm::vec3> Vertices;
 		std::vector<glm::vec2> TexCoords;
 		std::vector<glm::vec3> Normals;
-
-		std::istringstream lines(obj.GetContent());
+		
 		std::string line;
-		while (getline(lines, line))
+		while (getline(source, line))
 		{
 			std::stringstream ss(line);
 			std::string head;
@@ -49,10 +48,19 @@ namespace Meme {
 				for (int i = 0; i < target.size(); i++)
 				{
 					m_Indices.push_back(m_Vertices.size());
-					m_Vertices.push_back(target[i]);					
+					m_Vertices.push_back(target[i]);
 				}
 			}
 		}
+
+		source.close();
+
+		std::string filename = objPath.substr(0, objPath.size() - 4);
+		if (std::filesystem::exists(filename + ".mtl"))
+		{
+			LoadMTL(filename + ".mtl");
+		}
+
 	}
 
 	void Mesh::GenVerticesFromData(std::vector<Vertex>& target,
@@ -90,6 +98,95 @@ namespace Meme {
 		}
 	}
 
+	void Mesh::LoadMTL(const std::string& src)
+	{
+		std::ifstream source(src);
+		if (!source)
+			return;
+
+		std::string line;
+		int index = -1;
+		while (getline(source, line))
+		{
+			std::stringstream ss(line);
+			std::string head;
+			ss >> head;
+
+			if (head == "newmtl")
+			{
+				++index;
+				m_Material.push_back(Material());
+				ss >> m_Material[index].name;
+			}
+			else if (head == "Ns")
+			{
+				ss >> m_Material[index].opticalDensity;
+			}
+			else if (head == "Ka")
+			{
+				float x, y, z;
+				ss >> x >> y >> z;
+				m_Material[index].ambientColor = glm::vec3(x, y, z);
+			}
+			else if (head == "Kd")
+			{
+				float x, y, z;
+				ss >> x >> y >> z;
+				m_Material[index].diffuseColor = glm::vec3(x, y, z);
+			}
+			else if (head == "Ks")
+			{
+				float x, y, z;
+				ss >> x >> y >> z;
+				m_Material[index].specularColor = glm::vec3(x, y, z);
+			}
+			else if (head == "Ke")
+			{
+				float x, y, z;
+				ss >> x >> y >> z;
+				m_Material[index].emmisiveColor = glm::vec3(x, y, z);
+			}
+			else if (head == "Ni")
+			{
+				ss >> m_Material[index].specularWeight;
+			}
+			else if (head == "d")
+			{
+				ss >> m_Material[index].transparency;
+			}
+			else if (head == "illum")
+			{
+				ss >> m_Material[index].illuminationMode;
+			}
+			else if (head == "map_Kd")
+			{
+				std::string name;
+				ss >> name;
+				m_Material[index].mapKd.reset(Texture::Create("res/texture/" + name));
+			}
+			else if (head == "map_Bump")
+			{
+				std::string name;
+				ss >> name;
+				m_Material[index].mapBump.reset(Texture::Create("res/texture/" + name));
+			}
+			else if (head == "map_Ka")
+			{
+				std::string name;
+				ss >> name;
+				m_Material[index].mapKa.reset(Texture::Create("res/texture/" + name));
+			}
+			else if (head == "map_Ks")
+			{
+				std::string name;
+				ss >> name;
+				m_Material[index].mapKs.reset(Texture::Create("res/texture/" + name));
+			}
+		}
+
+		source.close();
+	}
+
 	//void Mesh::StripTriangle(std::vector<Vertex>& target)
 	//{
 	//	if (m_Vertices.size() == 0)
@@ -100,20 +197,25 @@ namespace Meme {
 	//		return;
 	//	}
 
-	//	std::vector<std::pair<uint32_t, uint32_t>> matchingIndicies;
-
-	//	for (int i = 0; i < m_Vertices.size(); ++i)
+	//	for (int i = 0; i < 3; ++i)
 	//	{
-	//		for (int j = 0; j < target.size(); ++j)
+	//		bool matching = false;
+	//		uint32_t matchingIndex;
+	//		for (int j = 0; j < 3; ++j)
 	//		{
-	//			if (target[j] == m_Vertices[i])
+	//			if (target[i] == m_Vertices[j])
 	//			{
-	//				matchingIndicies.push_back({i, j});
+	//				matching = true;
+	//				break;
 	//			}
 	//		}
+	//		if (!matching)
+	//		{
+	//			auto m = *std::max_element(m_Indices.begin(), m_Indices.end());
+	//			m_Vertices.push_back(target[i]);
+	//			m_Indices.push_back(m + 1);
+	//		}
 	//	}
-
-
 
 	//}
 }

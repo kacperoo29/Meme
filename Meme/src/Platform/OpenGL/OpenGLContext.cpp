@@ -19,6 +19,8 @@ namespace Meme {
 		int32_t status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		assert(status, "Failed to initalize glad!");
 
+		glEnable(GL_DEPTH_TEST);		
+
 		MEME_CORE_INFO("OpenGL Renderer: {0}", glGetString(GL_RENDERER));
 		MEME_CORE_INFO("OpenGL Version: {0}", glGetString(GL_VERSION));
 	}

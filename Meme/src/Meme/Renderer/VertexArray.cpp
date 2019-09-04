@@ -7,7 +7,7 @@
 
 namespace Meme {
 
-	VertexArray* Meme::VertexArray::Create()
+	VertexArray* VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{

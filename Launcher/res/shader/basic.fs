@@ -1,10 +1,15 @@
 #version 330 core
-			
-layout(location = 0) out vec4 color;
-			
-in vec3 v_Position;
+out vec4 color;
+
+in vec3 vPosition;
+in vec2 vTexCoords;
+in vec3 vNormal;
+
+uniform sampler2D cubeTexture;
+uniform samplerCube skybox;
+uniform vec3 uCameraPos;
 
 void main()
-{				
-	color = vec4((v_Position + 0.3) * 0.5 , 1.0);
+{    
+    color = texture(cubeTexture, vTexCoords);
 }
