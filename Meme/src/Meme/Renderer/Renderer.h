@@ -9,7 +9,7 @@ namespace Meme {
 
 	class Renderer {
 	public:
-		static void BeginScene(Camera& camera);		
+		static void BeginScene(const Ref<Camera>& camera);
 		static void EndScene();
 
 		static void SubmitSkybox(const Ref<VertexArray>& vertexArray,
@@ -24,7 +24,7 @@ namespace Meme {
 		inline static RenderAPI::API GetAPI() { return RenderAPI::GetAPI(); }
 			
 	private:
-		static Camera* s_Camera;
+		static Ref<Camera> s_Camera;
 
 	};
 }

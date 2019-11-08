@@ -5,11 +5,11 @@
 
 namespace Meme {
 
-	Camera* Renderer::s_Camera = new Camera;
+	Ref<Camera> Renderer::s_Camera = std::make_shared<Camera>();
 
-	void Renderer::BeginScene(Camera& camera)
+	void Renderer::BeginScene(const Ref<Camera>& camera)
 	{
-		Renderer::s_Camera = &camera;
+		Renderer::s_Camera = camera;
 	}
 
 	void Renderer::EndScene()

@@ -20,8 +20,8 @@ namespace Meme {
 	}
 
 	OpenGLVertexArray::OpenGLVertexArray()
-	{
-		glCreateVertexArrays(1, &m_ID);		
+	{		
+		glGenVertexArrays(1, &m_ID);		
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()

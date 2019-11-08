@@ -4,21 +4,22 @@
 
 #include "imgui.h"
 
-class ExampleLayer : public Meme::Layer 
+class ExampleLayer : public Meme::Layer
 {
 public:
 	ExampleLayer()
 		: Layer("Example"), m_CubePosition(0.0f)
-	{	
+	{
 		m_Camera = std::make_shared<Meme::Camera>(
 			Meme::App::Get().GetWindow().GetWidth(),
 			Meme::App::Get().GetWindow().GetHeight(),
 			65.f);
 
-	
+
+
 		m_SkyboxVA.reset(Meme::VertexArray::Create());
 		Meme::Mesh skybox;
-		skybox.LoadOBJ("res/model/skybox.obj");
+		skybox.LoadOBJ("res/model/untitled.obj");
 
 		Meme::Ref<Meme::VertexBuffer> skyboxVB;
 		skyboxVB.reset(Meme::VertexBuffer::Create(skybox.GetVerticesPointer(), skybox.GetVerticesSize()));
@@ -35,7 +36,7 @@ public:
 
 		m_SquareVA.reset(Meme::VertexArray::Create());
 		Meme::Mesh model;
-		model.LoadOBJ("res/model/cube.obj");
+		model.LoadOBJ("res/model/untitled.obj");
 
 		Meme::Ref<Meme::VertexBuffer> squareVB;
 		squareVB.reset(Meme::VertexBuffer::Create(model.GetVerticesPointer(), model.GetVerticesSize()));
@@ -60,44 +61,52 @@ public:
 	}
 
 	virtual void OnUpdate(Meme::Timestep timestep) override
-	{		
+	{
 		m_Camera->SetPosition(m_CameraPosition);
 		m_Camera->SetRotation(m_CameraRotation);
-		
+
 		Meme::RenderCommand::Clear();
-		Meme::Renderer::BeginScene(*m_Camera);		
+		Meme::Renderer::BeginScene(m_Camera);
 
-		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f));
+		std::vector<std::future<glm::mat4>> futures;
 
-		for (int z = 0; z < 5; ++z)
+		for (int z = 0; z < 25; ++z)
 		{
-			for (int y = 0; y < 5; ++y)
+			for (int y = 0; y < 25; ++y)
 			{
-				for (int x = 0; x < 5; ++x)
+				for (int x = 0; x < 25; ++x)
 				{
-					glm::vec3 pos(x * .5f, y * .5f, z * .5f);
-					pos += m_CubePosition;
-					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-					Meme::Renderer::Submit(m_SquareVA, m_Shader, m_Texture, transform);
+					futures.push_back(std::async(std::launch::async, &ExampleLayer::transform, this, x, y, z));
+
+					//glm::vec3 pos(x * .5f, y * .5f, z * .5f);
+					//pos += m_CubePosition;
+					//glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+					//Meme::Renderer::Submit(m_SquareVA, m_Shader, m_Texture, transform);
 				}
 			}
 		}
-		
+
+		for (auto& future : futures)
+		{
+			Meme::Renderer::Submit(m_SquareVA, m_Shader, m_Texture, future.get());
+		}
+
 		Meme::Renderer::SubmitSkybox(m_SkyboxVA, m_SkyboxShader, m_SkyboxCubemap);
 		Meme::Renderer::EndScene();
-	}	
+		MEME_INFO("Frame took {0} ms", timestep.GetMilliseconds());
+	}
 
-	bool OnKeyPressed(Meme::KeyPressedEvent& e) 
+	bool OnKeyPressed(Meme::KeyPressedEvent& e)
 	{
 		switch (e.GetKeycode())
-		{	
+		{
 
 		}
 
 		return false;
 	}
 
-	virtual void OnEvent(Meme::Event& e) override 
+	virtual void OnEvent(Meme::Event& e) override
 	{
 		if (e.GetEventType() == Meme::EventType::WindowResize)
 			m_Camera->OnWindowResize();
@@ -108,12 +117,22 @@ public:
 
 	virtual void OnImguiRender() override
 	{
-		ImGui::Begin("test");		
-		ImGui::SliderFloat3("Camera Position", &m_CameraPosition.x, -5.f, 5.f);
+		ImGui::Begin("test");
+		ImGui::SliderFloat3("Camera Position", &m_CameraPosition.x, -50.f, 50.f);
 		ImGui::SliderFloat2("Camera Rotation", &m_CameraRotation.x, -180.f, 180.f);
-		ImGui::SliderFloat3("Cube Position", &m_CubePosition.x, -5.f, 5.f);
-		
-		ImGui::End();	
+		ImGui::SliderFloat3("Cube Position", &m_CubePosition.x, -50.f, 50.f);
+
+		ImGui::End();
+	}
+
+	glm::mat4 transform(int x, int y, int z)
+	{
+		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f));
+		std::lock_guard<std::mutex> lk(m_Mutex);
+		glm::vec3 pos(x * .5f, y * .5f, z * .5f);
+		pos += m_CubePosition;
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+		return transform;
 	}
 
 private:
@@ -122,13 +141,17 @@ private:
 
 	Meme::Ref<Meme::VertexArray> m_SquareVA;
 	Meme::Ref<Meme::Shader> m_Shader;
-	Meme::Ref<Meme::Texture> m_Texture;	
+	Meme::Ref<Meme::Texture> m_Texture;
 	Meme::Ref<Meme::VertexArray> m_SkyboxVA;
 	Meme::Ref<Meme::Shader> m_SkyboxShader;
 	Meme::Ref<Meme::Cubemap> m_SkyboxCubemap;
 	Meme::Ref<Meme::Camera> m_Camera;
 
 	glm::vec3 m_CubePosition;
+
+	std::mutex m_Mutex;
+
+
 };
 
 class Launcher : public Meme::App
@@ -136,13 +159,13 @@ class Launcher : public Meme::App
 public:
 	Launcher()
 	{
-		PushLayer(new ExampleLayer());		
+		PushLayer(new ExampleLayer());
 	}
 	~Launcher()
 	{
 
 	}
-	
+
 };
 
 Meme::App* Meme::CreateApplication()
